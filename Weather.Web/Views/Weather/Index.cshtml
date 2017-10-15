@@ -1,0 +1,25 @@
+﻿@model Weather.App.Domain.Aggregates.Weather
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>View</h2>
+
+<div>
+    <h4>Weather</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+    <div>
+        <h5>@Model.Title</h5>
+        <ul>
+            <li>@Model.Condition.Temp</li>
+            <li>@Model.Condition.Text</li>
+            <li>@Model.Atmosphere.Humidity</li>
+            <li>@Model.Atmosphere.Pressure</li>
+            <li>@Model.Atmosphere.Visibility</li>
+        </ul>
+        <a href="@Model.Image.Link"><img src="@Model.Image.Url" alt="@Model.Image.Title"></a>
+    </div>
+</div>
