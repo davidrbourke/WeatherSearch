@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Weather.App.Infrastructure.Repositories;
 
 namespace Weather.App.Domain.Aggregates
 {
     public class User : IRootAggregate
     {
-        public int Id { get; private set; }
+        private IRepository _repo; 
 
         private string _emailAddress;
         public string EmailAddress
@@ -30,6 +31,11 @@ namespace Weather.App.Domain.Aggregates
 
         public IList<string> Locations { get; private set; }
 
+        public User()
+        {
+            _repo = new MongoRepository();
+        }
+
         public User AddWeatherLocation(string location)
         {
             if (Locations == null)
@@ -44,7 +50,7 @@ namespace Weather.App.Domain.Aggregates
 
         public User Save()
         {
-
+            var output = _repo.CreateAsync(this).Result;
             return this;
         }
 
@@ -60,13 +66,11 @@ namespace Weather.App.Domain.Aggregates
                 return false;
             }
         }
-
         
-
         public static class Factory
         {
             public static User CreateNew()
-            {
+            { 
                 return new User();
             }
         }
